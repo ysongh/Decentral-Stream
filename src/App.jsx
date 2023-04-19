@@ -15,6 +15,7 @@ import {
 } from "@huddle01/react/hooks";
 
 import Button from "./components/Button";
+import { HUDDLE01_PROJECTID } from "./keys";
 
 export default function Home() {
   // refs
@@ -23,7 +24,6 @@ export default function Home() {
   const { state, send } = useMeetingMachine();
 
   const [roomId, setRoomId] = useState("");
-  const [projectId, setProjectId] = useState("");
 
   // Event Listner
   useEventListener("lobby:cam-on", () => {
@@ -85,17 +85,10 @@ export default function Home() {
         </div>
 
         <h2 className="text-3xl text-blue-500 font-extrabold">Idle</h2>
-        <input
-          type="text"
-          placeholder="Your Project Id"
-          value={projectId}
-          onChange={(e) => setProjectId(e.target.value)}
-          className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none mr-2"
-        />
         <Button
           disabled={!state.matches("Idle")}
           onClick={() => {
-            initialize(projectId);
+            initialize(HUDDLE01_PROJECTID);
           }}
         >
           INIT
