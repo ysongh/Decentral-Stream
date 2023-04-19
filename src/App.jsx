@@ -15,6 +15,7 @@ import {
 } from "@huddle01/react/hooks";
 
 import Button from "./components/Button";
+import { createRoomAPI } from "./utils/huddle";
 import { HUDDLE01_PROJECTID } from "./keys";
 
 export default function Home() {
@@ -22,8 +23,6 @@ export default function Home() {
   const videoRef = useRef(null);
 
   const { state, send } = useMeetingMachine();
-
-  const [roomId, setRoomId] = useState("");
 
   // Event Listner
   useEventListener("lobby:cam-on", () => {
@@ -97,17 +96,10 @@ export default function Home() {
         <br />
         <br />
         <h2 className="text-3xl text-red-500 font-extrabold">Initialized</h2>
-        <input
-          type="text"
-          placeholder="Your Room Id"
-          value={roomId}
-          onChange={(e) => setRoomId(e.target.value)}
-          className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none mr-2"
-        />
         <Button
           disabled={!joinLobby.isCallable}
-          onClick={() => {
-            joinLobby(roomId);
+          onClick={async () => {
+            joinLobby(await createRoomAPI());
           }}
         >
           JOIN_LOBBY

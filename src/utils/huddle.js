@@ -1,0 +1,25 @@
+import axios from "axios";
+
+import { HUDDLE01_APIKEY } from "../keys";
+
+export const createRoomAPI = async () => {
+  try {
+    const response = await axios.post(
+      'https://iriko.testing.huddle01.com/api/v1/create-room',
+      {
+        title: 'Huddle01-Test',
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': HUDDLE01_APIKEY,
+        },
+      }
+    );
+    console.log(response);
+    return response.data.data.roomId;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
