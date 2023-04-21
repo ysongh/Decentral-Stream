@@ -22,7 +22,9 @@ export default function ViewStream() {
   } = useVideo(); 
   const { joinRoom, leaveRoom } = useRoom();
 
-  const { peerIds } = usePeers();
+  const { peers } = usePeers();
+
+  console.log(peers)
 
   useEffect(() => {
     // its preferable to use env vars to store projectId
@@ -33,13 +35,22 @@ export default function ViewStream() {
     <div>{isInitialized ? 'Hello World!' : 'Please initialize'}
 
       <div className="grid grid-cols-4">
-        {peerIds.map(peerId => (
-            <Video key={peerId} peerId={peerId} debug />
-        ))}
+        {Object.values(peers)
+          .filter((peer) => peer.cam)
+          .map((peer) => (
+            <Video
+              key={peer.peerId}
+              peerId={peer.peerId}
+              track={peer.cam}
+              debug
+            />
+          ))}
 
-        {peerIds.map(peerId => (
-            <Audio key={peerId} peerId={peerId} debug />
-        ))}
+        {Object.values(peers)
+          .filter((peer) => peer.mic)
+          .map((peer) => (
+            <Audio key={peer.peerId} peerId={peer.peerId} track={peer.mic} />
+          ))}
       </div>
 
       <button 
