@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 
 import { useEventListener, useHuddle01 } from "@huddle01/react";
 import { Audio, Video } from "@huddle01/react/components";
@@ -19,6 +19,9 @@ import { createRoomAPI } from "../utils/huddle";
 import { HUDDLE01_PROJECTID } from "../keys";
 
 export default function VideoStream() {
+
+  const [roomId, setRoomId] = useState("");
+
   // refs
   const videoRef = useRef(null);
 
@@ -82,6 +85,10 @@ export default function VideoStream() {
         <div className="break-words">
           {JSON.stringify(state.context.consumers)}
         </div>
+        <h2 className="text-2xl">Room ID</h2>
+        <div className="break-words">
+          {roomId}
+        </div>
 
         <h2 className="text-3xl text-blue-500 font-extrabold">Idle</h2>
         <Button
@@ -99,7 +106,9 @@ export default function VideoStream() {
         <Button
           disabled={!joinLobby.isCallable}
           onClick={async () => {
-            joinLobby(await createRoomAPI());
+            const newRoomId = await createRoomAPI();
+            setRoomId(newRoomId);
+            joinLobby(newRoomId);
           }}
         >
           JOIN_LOBBY
@@ -108,6 +117,13 @@ export default function VideoStream() {
         <br />
         <h2 className="text-3xl text-yellow-500 font-extrabold">Lobby</h2>
         <div className="flex gap-4 flex-wrap">
+          <Button
+            // disabled={!fetchVideoStream.isCallable}
+            onClick={() => navigator.clipboard.writeText(`${window.location.origin}/#/stream/${roomId}`)}
+          >
+            COPY LOBBY LINK
+          </Button>
+
           <Button
             disabled={!fetchVideoStream.isCallable}
             onClick={fetchVideoStream}
