@@ -15,7 +15,7 @@ import {
 } from "@huddle01/react/hooks";
 
 import Button from "../components/Button";
-import { createRoomAPI } from "../utils/huddle";
+import { createRoomAPI, getMeetingDetailAPI } from "../utils/huddle";
 import { HUDDLE01_PROJECTID } from "../keys";
 
 export default function VideoStream() {
@@ -140,6 +140,14 @@ export default function VideoStream() {
           >
             COPY LOBBY LINK
           </Button>
+
+          <Button
+            disabled={!fetchVideoStream.isCallable}
+            onClick={() => getMeetingDetailAPI(roomId)}
+          >
+            GET MEETING DETAILS
+          </Button>
+
 
           <Button
             disabled={!fetchVideoStream.isCallable}
