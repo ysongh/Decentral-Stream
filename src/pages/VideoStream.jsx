@@ -1,7 +1,8 @@
 import React, { useRef, useState } from "react";
-
 import { useEventListener, useHuddle01 } from "@huddle01/react";
 import { Audio, Video } from "@huddle01/react/components";
+import { MicrophoneIcon } from "@heroicons/react/24/solid";
+
 /* Uncomment to see the Xstate Inspector */
 // import { Inspect } from '@huddle01/react/components';
 
@@ -230,6 +231,7 @@ export default function VideoStream() {
         <div>
           Me Video:
           <video ref={videoRef} autoPlay muted></video>
+          {!fetchVideoStream.isCallable || !fetchAudioStream.isCallable && <MicrophoneIcon className="h-6 w-6" />}
           <div className="grid grid-cols-4">
             {Object.values(peers)
               .filter((peer) => peer.cam)
