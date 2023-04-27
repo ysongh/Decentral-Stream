@@ -1,9 +1,7 @@
-import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useHuddle01 } from '@huddle01/react';
 import { useLobby, useAudio, useVideo, useRoom, usePeers } from '@huddle01/react/hooks';
 
-import { HUDDLE01_PROJECTID } from '../keys';
 import { Audio, Video } from "@huddle01/react/components";
 
 export default function ViewStream() {
@@ -25,11 +23,6 @@ export default function ViewStream() {
   const { peers } = usePeers();
 
   console.log(peers)
-
-  useEffect(() => {
-    // its preferable to use env vars to store projectId
-    initialize(HUDDLE01_PROJECTID);
-  }, []);
 
   return (
     <div>{isInitialized ? 'Hello World!' : 'Please initialize'}

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 // huddle01
-import { useEventListener, useHuddle01 } from "@huddle01/react";
+import { useEventListener } from "@huddle01/react";
 import { Video, Audio } from "@huddle01/react/components";
 import {
   useVideo,
@@ -15,11 +15,8 @@ import {
 import { createRoomAPI } from "../utils/huddle";
 
 import Button from "../components/Button";
-import { HUDDLE01_PROJECTID } from "../keys";
 
 const RecordStream = () => {
-  const { initialize, isInitialized } = useHuddle01();
-
   // roomId logic
   const [roomId, setRoomId] = useState("");
 
@@ -44,10 +41,6 @@ const RecordStream = () => {
     console.log({ peers });
   }, [peers]);
 
-  useEffect(() => {
-    // its preferable to use env vars to store projectId
-    initialize(HUDDLE01_PROJECTID);
-  }, []);
 
   // Event Listner
   useEventListener("lobby:cam-on", () => {

@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { useEventListener, useHuddle01 } from "@huddle01/react";
+import { useEventListener } from "@huddle01/react";
 import { Audio, Video } from "@huddle01/react/components";
 import { MicrophoneIcon } from "@heroicons/react/24/solid";
 
@@ -17,7 +17,6 @@ import {
 
 import Button from "../components/Button";
 import { createRoomAPI, getMeetingDetailAPI } from "../utils/huddle";
-import { HUDDLE01_PROJECTID } from "../keys";
 
 export default function VideoStream() {
 
@@ -34,7 +33,6 @@ export default function VideoStream() {
       videoRef.current.srcObject = state.context.camStream;
   });
 
-  const { initialize } = useHuddle01();
   const { joinLobby } = useLobby();
   const {
     fetchAudioStream,
@@ -91,16 +89,6 @@ export default function VideoStream() {
           <div className="break-words">
             {roomId}
           </div>
-
-          <h2 className="text-3xl text-blue-500 font-extrabold">Idle</h2>
-          <Button
-            disabled={!state.matches("Idle")}
-            onClick={() => {
-              initialize(HUDDLE01_PROJECTID);
-            }}
-          >
-            INIT
-          </Button>
 
           <br />
           <br />
