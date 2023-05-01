@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import { useHuddle01 } from '@huddle01/react';
 
+import Navbar from "./components/Navbar";
 import VideoStream from "./pages/VideoStream";
 import ViewStream from "./pages/ViewStream";
 import RecordStream from './pages/RecordStream';
@@ -18,6 +19,7 @@ function App() {
 
   return (
     <HashRouter>
+      <Navbar />
       <Routes>
         <Route
           path="/stream/:roomId"
